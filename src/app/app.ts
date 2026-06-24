@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { WatchForm } from './watch-form/watch-form';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone:true,
+  imports: [WatchForm],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

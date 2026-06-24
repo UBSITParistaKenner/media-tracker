@@ -1,1 +1,13 @@
-<p>watch-form works!</p>
+<h2> {{editingId() ? 'Updating Movie' : 'Register new Movie'}}</h2>
+
+<form [formGroup]="watchForm" (ngSubmit)="onSubmit()">
+    <input formControlName="title" placeholder="Title">
+    <input formControlName="episode" placeholder="Episodes">
+    <input formControlName="season" placeholder="Seasons">
+    <input formControlName="description" placeholder="Description">
+    <input formControlName="status" placeholder="Status">
+
+    <button type="submit" [disabled]="!watchForm.valid">
+        {{ editingId() ? 'Confirm Update : 'Add to Movie List}}
+    </button>
+</form>
