@@ -10,4 +10,22 @@
     <button type="submit" [disabled]="!watchForm.valid">
         {{ editingId() ? 'Confirm Update : 'Add to Movie List}}
     </button>
+
+    @if (editingId()) {
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+    }
 </form>
+
+    <h2>Current Pokedex</h2>
+
+    @for (p of watchService.watchList(); track p.id) {
+        <div class="card">
+            <h3>{{ p.name }} (Lvl) {{ p.level }} </h3>
+            <p>{{ p.type }} | {{ p.nature }}</p>
+
+            <button type="button" (click)="startEdit(p)">Edit</button>
+            <button type="button" (click)="deleteWatch(p.id)">Release</button>
+        </div>
+    }   @empty {
+        <p>No Watch List recorded.</p>
+    }

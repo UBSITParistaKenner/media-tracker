@@ -25,4 +25,8 @@ export class Watch {
   updateWatch(id: string, data: any) {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
+
+  movieList = signal([
+    {title: '', author: '', artist: '', episodes: 1,}
+  ])
 }
