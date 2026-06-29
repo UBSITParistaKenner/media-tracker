@@ -1,6 +1,6 @@
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { Watch } from '../watch';
+import { Media } from '../media';
 
 @Component({
   selector: 'app-watch-form',
@@ -12,7 +12,7 @@ import { Watch } from '../watch';
 })
 export class WatchForm {
   private formBuilder = inject(FormBuilder);
-  watchService = inject(Watch);
+  mediaService = inject(Media);
 
   editingId = signal<string | null>(null);
 
@@ -29,13 +29,13 @@ export class WatchForm {
       const formData = this.watchForm.getRawValue();
 
       if(this.editingId()) {
-        this.watchService.updateWatch(this.editingId()!, formData).subscribe(() => {
-          this.watchService.fetchWatch();
+        this.mediaService.updateWatch(this.editingId()!, formData).subscribe(() => {
+          this.mediaService.fetchWatch();
           this.cancelEdit();
         });
       } else {
-        this.watchService.saveWatch(formData).subscribe(() => {
-          this.watchService.fetchWatch();
+        this.mediaService.saveWatch(formData).subscribe(() => {
+          this.mediaService.fetchWatch();
           this.watchForm.reset();
           console.log('Movie saved successfully!');
         });
@@ -61,8 +61,8 @@ export class WatchForm {
 
   deleteWatch(id: string) {
     if (confirm("Are you sure you want to release this Movie")) {
-      this.watchService.deleteWatch(id).subscribe(() => {
-        this.watchService.fetchWatch();
+      this.mediaService.deleteWatch(id).subscribe(() => {
+        this.mediaService.fetchWatch();
       })
     }
   }

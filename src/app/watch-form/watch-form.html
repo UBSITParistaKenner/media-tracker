@@ -1,31 +1,38 @@
-<h2> {{editingId() ? 'Updating Movie' : 'Register new Movie'}}</h2>
+<h2>{{ editingId() ? 'Edit Movie Review' : 'Log a New Film Review' }}</h2>
 
 <form [formGroup]="watchForm" (ngSubmit)="onSubmit()">
-    <input formControlName="title" placeholder="Title">
-    <input formControlName="episode" placeholder="Episodes">
-    <input formControlName="season" placeholder="Seasons">
-    <input formControlName="description" placeholder="Description">
-    <input formControlName="status" placeholder="Status">
+  
+  <div class="input-group">
+    <label>Movie / Series Title:</label>
+    <input formControlName="title" placeholder="e.g., Parasite, Heneral Luna...">
+  </div>
 
-    <button type="submit" [disabled]="!watchForm.valid">
-        {{ editingId() ? 'Confirm Update : 'Add to Movie List}}
-    </button>
+  <div class="row-inputs">
+    <div class="input-group">
+      <label>Season / Part:</label>
+      <input type="number" formControlName="season" placeholder="e.g., 1">
+    </div>
+    <div class="input-group">
+      <label>Episode / Watch Count:</label>
+      <input type="number" formControlName="episode" placeholder="e.g., 1">
+    </div>
+  </div>
 
-    @if (editingId()) {
-        <button type="button" (click)="cancelEdit()">Cancel</button>
-    }
+  <div class="input-group">
+    <label>Your Verdict Status:</label>
+    <input formControlName="status" placeholder="e.g., Masterpiece, Highly Recommended, Must Watch">
+  </div>
+
+  <div class="input-group">
+    <label>Review Notes & Thoughts:</label>
+    <textarea formControlName="description" rows="4" placeholder="Write your breakdown or review here..."></textarea>
+  </div>
+
+  <button type="submit" [disabled]="!watchForm.valid">
+    {{ editingId() ? 'Confirm Update' : 'Post Review Log' }}
+  </button>
+
+  @if (editingId()) {
+    <button type="button" (click)="cancelEdit()">Cancel</button>
+  }
 </form>
-
-    <h2>Current Pokedex</h2>
-
-    @for (p of watchService.watchList(); track p.id) {
-        <div class="card">
-            <h3>{{ p.name }} (Lvl) {{ p.level }} </h3>
-            <p>{{ p.type }} | {{ p.nature }}</p>
-
-            <button type="button" (click)="startEdit(p)">Edit</button>
-            <button type="button" (click)="deleteWatch(p.id)">Release</button>
-        </div>
-    }   @empty {
-        <p>No Watch List recorded.</p>
-    }
